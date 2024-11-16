@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recipe Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">Recipe Details List</h2>
+        <div th:if="${errorMessage}">
+            <p class="text-danger" th:text="${errorMessage}"></p>
+        </div>
+        <div th:if="${recipes}">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Ingredients</th>
+                        <th>Country</th>
+                        <th>Difficulty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="recipe : ${recipes}">
+                        <td th:text="${recipe.name}"></td>
+                        <td th:text="${recipe.type}"></td>
+                        <td th:text="${recipe.ingredients}"></td>
+                        <td th:text="${recipe.country}"></td>
+                        <td th:text="${recipe.difficulty}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

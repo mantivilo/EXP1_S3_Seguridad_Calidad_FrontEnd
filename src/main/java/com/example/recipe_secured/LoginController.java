@@ -1,18 +1,13 @@
 package com.example.recipe_secured;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
 
-    @GetMapping("/login")
-    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
-        if (error != null) {
-            model.addAttribute("errorMessage", "Invalid username or password.");
-        }
-        return "login";
+    @GetMapping("/user-login")
+    public String showLoginPage() {
+        return "login"; // Renders login.html
     }
 }

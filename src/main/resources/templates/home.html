@@ -8,15 +8,27 @@
     <div class="container mt-5">
         <div class="jumbotron text-center">
             <h1 class="display-4">Bienvenido a Comparte tu receta</h1>
-            <p class="lead">Explora populares recetas e inspirate a cocinar algo nuevo</p>
-            <a href="/login" class="btn btn-primary btn-lg mt-3">Login</a>
+            <p class="lead">Explora populares recetas e inspírate a cocinar algo nuevo</p>
+            
+            <!-- Display login button if user is not logged in -->
+            <a href="/user-login" th:if="${!isLoggedIn}" class="btn btn-primary btn-lg mt-3">Login</a>
+
+            <!-- Display link to recipe details if user is logged in -->
+            <a href="/recipes/details" th:if="${isLoggedIn}" class="btn btn-secondary btn-lg mt-3">View All Recipe Details</a>
+            
+            <!-- Welcome message for logged-in users -->
+            <p th:if="${isLoggedIn}" class="text-success mt-3">Welcome back! Browse recipes below.</p>
         </div>
         
         <h3 class="mt-4">Revisa recetas populares:</h3>
         <div class="list-group mt-3">
-            <a th:each="recipe : ${recipes}" th:href="@{/recipe(name=${recipe})}" class="list-group-item list-group-item-action" th:text="${recipe}"></a>
+            <!-- Dynamically render recipe list with links -->
+            <a th:each="recipe : ${recipes}" 
+               th:href="@{/recipe/details/{id}(id=${recipe.id})}" 
+               class="list-group-item list-group-item-action" 
+               th:text="${recipe.name}">
+            </a>
         </div>
     </div>
 </body>
 </html>
-

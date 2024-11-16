@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Recipe Details</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="jumbotron">
+            <h1 class="display-4" th:text="${recipe.name}">Recipe Name</h1>
+            <p><strong>Type:</strong> <span th:text="${recipe.type}"></span></p>
+            <p><strong>Ingredients:</strong> <span th:text="${recipe.ingredients}"></span></p>
+            <p><strong>Country:</strong> <span th:text="${recipe.country}"></span></p>
+            <p><strong>Difficulty:</strong> <span th:text="${recipe.difficulty}"></span></p>
+            <p><strong>Instructions:</strong> <span th:text="${recipe.instructions}"></span></p>
+            <img th:src="${recipe.imageUrl}" alt="Recipe Image" class="img-fluid mt-3">
+        </div>
+    </div>
+</body>
+</html>

@@ -4,9 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -14,22 +16,19 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                .requestMatchers("/home", "/login", "/search").permitAll() // Public pages
-                .requestMatchers("/recipe").authenticated() // Protected pages
-                .anyRequest().authenticated() // All other requests require authentication
-            )
-            .formLogin(formLogin -> formLogin
-                .loginPage("/login") // Custom login page
+        http.csrf().disable()
+            .authorizeHttpRequests()
+            .requestMatchers("/", "/home", "/user-login", "/login").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+                .loginPage("/user-login")
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
+            .and()
+            .logout()
                 .logoutSuccessUrl("/home")
-                .permitAll()
-            );
+                .permitAll();
 
         return http.build();
     }
